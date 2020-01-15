@@ -5,19 +5,20 @@ const urlApi = process.env.URL_API
 
 // Request Method POST Unirest
 exports.post = (url, res, req) => {
+    console.log(req)
     unirest.post(urlApi + url)
         .headers({
             'Accept': 'application/json', 
             'Content-Type': 'application/json'
         })
-        .send({})
+        .send(req.body)
         .end(function (response) {
             res.send(response.body)
 
             // Logger Request
             logger.loggerRequest.info({ 
-                method: req.method,
-                endpoint: req.originalUrl,
+                method: 'POST',
+                endpoint: url,
                 label: 'Unirest Method',
                 message: req.body
             })
@@ -26,8 +27,8 @@ exports.post = (url, res, req) => {
             
             // Logger Response
             logger.loggerResponse.info({ 
-                method: req.method,
-                endpoint: req.originalUrl,
+                method: 'POST',
+                endpoint: url,
                 label: 'Unirest Method',
                 message: response.body
             })
