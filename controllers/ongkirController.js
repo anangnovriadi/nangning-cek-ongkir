@@ -17,5 +17,13 @@ exports.ongkir = (req, res) => {
 }
 
 exports.resi = (req, res) => {
-    return request.post(`/resi`, res, req)
+    let reqJson = {
+        endpoint: '/waybill',
+        body: {
+            waybill: req.body.waybill,
+            courierCode: req.body.courier_code
+        }
+    }
+
+    return request.post(`/waybill`, res, reqJson)
 }
